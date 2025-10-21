@@ -28,10 +28,10 @@ export function Dashboard() {
       color: "#ff8555",
     },
     {
-      name: "Mensajería",
+      name: "Flujo de caja",
       description: "Plataforma de comunicación interna del equipo",
-      icon: "💬",
-      url: "https://mensajeria.example.com",
+      icon: "📈",
+      url: "http://192.168.200.80:5001/login",
       color: "#ff6b35",
     },
     {
