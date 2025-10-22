@@ -19,7 +19,21 @@ export function AppCard({
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Detectar si es un archivo descargable (APK, PDF, etc.)
+    const isDownloadable = url.match(/\.(apk|pdf|zip|rar|exe)$/i);
+
+    if (isDownloadable) {
+      // Crear un elemento <a> temporal para forzar la descarga
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = url.split('/').pop() || 'download';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // Para URLs normales, abrir en nueva pestaña
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (

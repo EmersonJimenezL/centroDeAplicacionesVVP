@@ -50,9 +50,9 @@ export const APPLICATIONS: Application[] = [
   },
   {
     id: "apk-stock-mobil",
-    name: "APK Stok Mobil - Android",
+    name: "APK Stock Móvil - Android",
     description:
-      "Descarga aqui la nueva aplicacion para visualizar el stock, facil y rapido desde sus dispositivos mobiles",
+      "Descarga aquí la nueva aplicación para visualizar el stock, fácil y rápido desde tus dispositivos móviles",
     icon: "📲",
     url: "http://192.168.200.80:3000/apk/app-release16.apk",
     color: "#e5522b",
