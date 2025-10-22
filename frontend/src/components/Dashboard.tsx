@@ -49,11 +49,12 @@ export const APPLICATIONS: Application[] = [
     color: "#ff6b35",
   },
   {
-    id: "archivos",
-    name: "Archivos",
-    description: "Almacenamiento y gestión de documentos",
-    icon: "📁",
-    url: "https://archivos.example.com",
+    id: "apk-stock-mobil",
+    name: "APK Stok Mobil - Android",
+    description:
+      "Descarga aqui la nueva aplicacion para visualizar el stock, facil y rapido desde sus dispositivos mobiles",
+    icon: "📲",
+    url: "http://192.168.200.80:3000/apk/app-release16.apk",
     color: "#e5522b",
   },
   {
@@ -71,9 +72,10 @@ export function Dashboard() {
 
   // Filter applications based on user permissions
   // Admin users see all apps, regular users see only apps they have permission for
-  const applications = usuario && isAdminUser(usuario.usuario)
-    ? APPLICATIONS
-    : APPLICATIONS.filter(app => usuario?.permisos.includes(app.id));
+  const applications =
+    usuario && isAdminUser(usuario.usuario)
+      ? APPLICATIONS
+      : APPLICATIONS.filter((app) => usuario?.permisos.includes(app.id));
 
   return (
     <div className="app-container">
