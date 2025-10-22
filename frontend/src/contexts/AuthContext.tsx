@@ -4,35 +4,44 @@ import { authService } from '../services/authService';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'vivipra_usuario';
+const STORAGE_KEY_USER = 'vivipra_usuario';
+const STORAGE_KEY_TOKEN = 'vivipra_token';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Cargar usuario desde sessionStorage al iniciar
+  // Cargar usuario y token desde sessionStorage al iniciar
   useEffect(() => {
-    const usuarioGuardado = sessionStorage.getItem(STORAGE_KEY);
-    if (usuarioGuardado) {
+    const usuarioGuardado = sessionStorage.getItem(STORAGE_KEY_USER);
+    const tokenGuardado = sessionStorage.getItem(STORAGE_KEY_TOKEN);
+
+    if (usuarioGuardado && tokenGuardado) {
       try {
         setUsuario(JSON.parse(usuarioGuardado));
+        setToken(tokenGuardado);
       } catch (error) {
-        console.error('Error al parsear usuario guardado:', error);
-        sessionStorage.removeItem(STORAGE_KEY);
+        console.error('Error al parsear datos guardados:', error);
+        sessionStorage.removeItem(STORAGE_KEY_USER);
+        sessionStorage.removeItem(STORAGE_KEY_TOKEN);
       }
     }
     setLoading(false);
   }, []);
 
-  const login = async (nombreUsuario: string, password: string) => {
+  const login = async (usuario: string, password: string) => {
     setLoading(true);
     try {
-      const response = await authService.login(nombreUsuario, password);
-      const usuarioData = response.usuario;
+      const response = await authService.login(usuario, password);
+      const usuarioData = response.data;
+      const tokenData = response.token;
 
       // Guardar en state y sessionStorage
       setUsuario(usuarioData);
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(usuarioData));
+      setToken(tokenData);
+      sessionStorage.setItem(STORAGE_KEY_USER, JSON.stringify(usuarioData));
+      sessionStorage.setItem(STORAGE_KEY_TOKEN, tokenData);
     } catch (error) {
       throw error;
     } finally {
@@ -42,15 +51,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUsuario(null);
-    sessionStorage.removeItem(STORAGE_KEY);
+    setToken(null);
+    sessionStorage.removeItem(STORAGE_KEY_USER);
+    sessionStorage.removeItem(STORAGE_KEY_TOKEN);
   };
 
   const isAuthenticated = (): boolean => {
-    return usuario !== null;
+    return usuario !== null && token !== null;
   };
 
   const value: AuthContextType = {
     usuario,
+    token,
     login,
     logout,
     isAuthenticated,

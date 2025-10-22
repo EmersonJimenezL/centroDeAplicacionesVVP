@@ -1,11 +1,11 @@
 import type { LoginRequest, LoginResponse, LoginError } from '../types/auth.types';
 
-const API_URL = 'http://192.168.200.80:3005/usuarios/login';
+const API_URL = 'http://192.168.200.80:3005/centrodeaplicaciones/login';
 
 export const authService = {
-  async login(nombreUsuario: string, password: string): Promise<LoginResponse> {
+  async login(usuario: string, password: string): Promise<LoginResponse> {
     const requestBody: LoginRequest = {
-      nombreUsuario,
+      usuario,
       password
     };
 

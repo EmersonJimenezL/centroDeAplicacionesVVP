@@ -92,6 +92,29 @@
   animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
+.no-apps {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 107, 53, 0.1);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.no-apps p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.no-apps p:first-child {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;
