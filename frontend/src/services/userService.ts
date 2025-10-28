@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.200.80:3005/centrodeaplicaciones';
+const API_BASE_URL = "http://192.168.200.80:3005/centrodeaplicaciones";
 
 export interface CreateUserRequest {
   usuario: string;
@@ -40,37 +40,44 @@ export interface ApiResponse<T> {
 }
 
 export const userService = {
-  async createUser(userData: CreateUserRequest, token: string): Promise<ApiResponse<any>> {
+  async createUser(
+    userData: CreateUserRequest,
+    token: string
+  ): Promise<ApiResponse<any>> {
     const response = await fetch(`${API_BASE_URL}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al crear usuario');
+      throw new Error(errorData.message || "Error al crear usuario");
     }
 
     return response.json();
   },
 
-  async updateUser(userId: string, userData: UpdateUserRequest, token: string): Promise<ApiResponse<any>> {
+  async updateUser(
+    userId: string,
+    userData: UpdateUserRequest,
+    token: string
+  ): Promise<ApiResponse<any>> {
     const response = await fetch(`${API_BASE_URL}/${userId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al actualizar usuario');
+      throw new Error(errorData.message || "Error al actualizar usuario");
     }
 
     return response.json();
@@ -78,51 +85,61 @@ export const userService = {
 
   async deleteUser(userId: string, token: string): Promise<ApiResponse<any>> {
     const response = await fetch(`${API_BASE_URL}/${userId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al eliminar usuario');
+      throw new Error(errorData.message || "Error al eliminar usuario");
     }
 
     return response.json();
   },
 
-  async changeUserStatus(userId: string, activo: boolean, token: string): Promise<ApiResponse<any>> {
+  async changeUserStatus(
+    userId: string,
+    activo: boolean,
+    token: string
+  ): Promise<ApiResponse<any>> {
     const response = await fetch(`${API_BASE_URL}/${userId}/estado`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ activo }),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al cambiar estado del usuario');
+      throw new Error(
+        errorData.message || "Error al cambiar estado del usuario"
+      );
     }
 
     return response.json();
   },
 
-  async changePassword(userId: string, password: string, token: string): Promise<ApiResponse<any>> {
+  async changePassword(
+    userId: string,
+    password: string,
+    token: string
+  ): Promise<ApiResponse<any>> {
     const response = await fetch(`${API_BASE_URL}/${userId}/password`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ password }),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al cambiar contraseña');
+      throw new Error(errorData.message || "Error al cambiar contraseña");
     }
 
     return response.json();

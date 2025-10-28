@@ -1,19 +1,23 @@
-import type { LoginRequest, LoginResponse, LoginError } from '../types/auth.types';
+import type {
+  LoginRequest,
+  LoginResponse,
+  LoginError,
+} from "../types/auth.types";
 
-const API_URL = 'http://192.168.200.80:3005/centrodeaplicaciones/login';
+const API_URL = "http://192.168.200.80:3005/centrodeaplicaciones/login";
 
 export const authService = {
   async login(usuario: string, password: string): Promise<LoginResponse> {
     const requestBody: LoginRequest = {
       usuario,
-      password
+      password,
     };
 
     try {
       const response = await fetch(API_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
@@ -23,7 +27,7 @@ export const authService = {
       if (!response.ok) {
         // Si la respuesta no es ok, es un error
         const errorData = data as LoginError;
-        throw new Error(errorData.error || 'Error al iniciar sesión');
+        throw new Error(errorData.error || "Error al iniciar sesión");
       }
 
       return data as LoginResponse;
@@ -31,7 +35,7 @@ export const authService = {
       if (error instanceof Error) {
         throw error;
       }
-      throw new Error('Error de conexión. Por favor, intente nuevamente.');
+      throw new Error("Error de conexión. Por favor, intente nuevamente.");
     }
-  }
+  },
 };

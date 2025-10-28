@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import type { Usuario } from '../types/auth.types';
-import './UserFormModal.css';
+import { useState, useEffect } from "react";
+import type { Usuario } from "../types/auth.types";
+import "./UserFormModal.css";
 
 const SUCURSAL_OPTIONS = Object.freeze([
   "Casa Matriz",
@@ -52,21 +52,27 @@ export interface UserFormData {
   rol: string[];
 }
 
-export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: UserFormModalProps) {
+export function UserFormModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  editUser,
+  title,
+}: UserFormModalProps) {
   const [formData, setFormData] = useState<UserFormData>({
-    usuario: '',
-    pnombre: '',
-    snombre: '',
-    papellido: '',
-    sapellido: '',
-    password: '',
-    email: '',
-    sucursal: '',
-    area: '',
+    usuario: "",
+    pnombre: "",
+    snombre: "",
+    papellido: "",
+    sapellido: "",
+    password: "",
+    email: "",
+    sucursal: "",
+    area: "",
     rol: [],
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (editUser) {
@@ -83,41 +89,41 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
       });
     } else {
       setFormData({
-        usuario: '',
-        pnombre: '',
-        snombre: '',
-        papellido: '',
-        sapellido: '',
-        password: '',
-        email: '',
-        sucursal: '',
-        area: '',
+        usuario: "",
+        pnombre: "",
+        snombre: "",
+        papellido: "",
+        sapellido: "",
+        password: "",
+        email: "",
+        sucursal: "",
+        area: "",
         rol: [],
       });
     }
-    setError('');
+    setError("");
   }, [editUser, isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       await onSubmit(formData);
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al guardar usuario');
+      setError(err instanceof Error ? err.message : "Error al guardar usuario");
     } finally {
       setLoading(false);
     }
   };
 
   const handleRolChange = (rol: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       rol: prev.rol.includes(rol)
-        ? prev.rol.filter(r => r !== rol)
+        ? prev.rol.filter((r) => r !== rol)
         : [...prev.rol, rol],
     }));
   };
@@ -130,8 +136,20 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
         <div className="modal-header">
           <h2>{title}</h2>
           <button className="modal-close" onClick={onClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -139,8 +157,20 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
         <form onSubmit={handleSubmit} className="user-form">
           {error && (
             <div className="form-error">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               {error}
             </div>
@@ -153,7 +183,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                 type="text"
                 id="usuario"
                 value={formData.usuario}
-                onChange={(e) => setFormData({ ...formData, usuario: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, usuario: e.target.value })
+                }
                 required
                 disabled={!!editUser}
                 placeholder="nombre.usuario"
@@ -167,7 +199,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                   type="password"
                   id="password"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   required={!editUser}
                   placeholder="••••••"
                 />
@@ -182,7 +216,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                 type="text"
                 id="pnombre"
                 value={formData.pnombre}
-                onChange={(e) => setFormData({ ...formData, pnombre: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, pnombre: e.target.value })
+                }
                 required
                 placeholder="Juan"
               />
@@ -194,7 +230,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                 type="text"
                 id="snombre"
                 value={formData.snombre}
-                onChange={(e) => setFormData({ ...formData, snombre: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, snombre: e.target.value })
+                }
                 placeholder="Carlos"
               />
             </div>
@@ -207,7 +245,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                 type="text"
                 id="papellido"
                 value={formData.papellido}
-                onChange={(e) => setFormData({ ...formData, papellido: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, papellido: e.target.value })
+                }
                 required
                 placeholder="Pérez"
               />
@@ -219,7 +259,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
                 type="text"
                 id="sapellido"
                 value={formData.sapellido}
-                onChange={(e) => setFormData({ ...formData, sapellido: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, sapellido: e.target.value })
+                }
                 required
                 placeholder="González"
               />
@@ -232,7 +274,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
               type="email"
               id="email"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
               placeholder="usuario@vivipra.cl"
             />
@@ -244,7 +288,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
               <select
                 id="sucursal"
                 value={formData.sucursal}
-                onChange={(e) => setFormData({ ...formData, sucursal: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, sucursal: e.target.value })
+                }
                 required
                 className="form-select"
               >
@@ -262,7 +308,9 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
               <select
                 id="area"
                 value={formData.area}
-                onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, area: e.target.value })
+                }
                 required
                 className="form-select"
               >
@@ -293,11 +341,20 @@ export function UserFormModal({ isOpen, onClose, onSubmit, editUser, title }: Us
           </div>
 
           <div className="form-actions">
-            <button type="button" onClick={onClose} className="btn-cancel" disabled={loading}>
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-cancel"
+              disabled={loading}
+            >
               Cancelar
             </button>
             <button type="submit" className="btn-submit" disabled={loading}>
-              {loading ? 'Guardando...' : editUser ? 'Actualizar' : 'Crear Usuario'}
+              {loading
+                ? "Guardando..."
+                : editUser
+                ? "Actualizar"
+                : "Crear Usuario"}
             </button>
           </div>
         </form>

@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { isAdminUser } from '../types/admin.types';
-import { ReactNode } from 'react';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { isAdminUser } from "../types/admin.types";
+import type { ReactNode } from "react";
 
 interface ProtectedAdminRouteProps {
   children: ReactNode;

@@ -1,22 +1,26 @@
-import type { UsersListResponse, UpdatePermissionsRequest, UpdatePermissionsResponse } from '../types/admin.types';
+import type {
+  UsersListResponse,
+  UpdatePermissionsRequest,
+  UpdatePermissionsResponse,
+} from "../types/admin.types";
 
-const API_BASE_URL = 'http://192.168.200.80:3005/centrodeaplicaciones';
+const API_BASE_URL = "http://192.168.200.80:3005/centrodeaplicaciones";
 
 export const adminService = {
   async getAllUsers(token: string): Promise<UsersListResponse> {
     try {
       const response = await fetch(API_BASE_URL, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Error al obtener usuarios');
+        throw new Error(data.message || "Error al obtener usuarios");
       }
 
       return data as UsersListResponse;
@@ -24,21 +28,25 @@ export const adminService = {
       if (error instanceof Error) {
         throw error;
       }
-      throw new Error('Error de conexión al obtener usuarios');
+      throw new Error("Error de conexión al obtener usuarios");
     }
   },
 
-  async updateUserPermissions(userId: string, permisos: string[], token: string): Promise<UpdatePermissionsResponse> {
+  async updateUserPermissions(
+    userId: string,
+    permisos: string[],
+    token: string
+  ): Promise<UpdatePermissionsResponse> {
     const requestBody: UpdatePermissionsRequest = {
-      permisos
+      permisos,
     };
 
     try {
       const response = await fetch(`${API_BASE_URL}/${userId}/permisos`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(requestBody),
       });
@@ -46,7 +54,7 @@ export const adminService = {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Error al actualizar permisos');
+        throw new Error(data.message || "Error al actualizar permisos");
       }
 
       return data as UpdatePermissionsResponse;
@@ -54,7 +62,7 @@ export const adminService = {
       if (error instanceof Error) {
         throw error;
       }
-      throw new Error('Error de conexión al actualizar permisos');
+      throw new Error("Error de conexión al actualizar permisos");
     }
-  }
+  },
 };

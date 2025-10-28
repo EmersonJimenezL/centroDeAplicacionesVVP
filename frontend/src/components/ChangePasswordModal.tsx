@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import './ChangePasswordModal.css';
+import { useState } from "react";
+import "./ChangePasswordModal.css";
 
 interface ChangePasswordModalProps {
   isOpen: boolean;
@@ -8,43 +8,50 @@ interface ChangePasswordModalProps {
   username: string;
 }
 
-export function ChangePasswordModal({ isOpen, onClose, onSubmit, username }: ChangePasswordModalProps) {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+export function ChangePasswordModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  username,
+}: ChangePasswordModalProps) {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setError("Las contraseñas no coinciden");
       return;
     }
 
     if (password.length < 4) {
-      setError('La contraseña debe tener al menos 4 caracteres');
+      setError("La contraseña debe tener al menos 4 caracteres");
       return;
     }
 
     setLoading(true);
     try {
       await onSubmit(password);
-      setPassword('');
-      setConfirmPassword('');
+      setPassword("");
+      setConfirmPassword("");
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cambiar contraseña');
+      setError(
+        err instanceof Error ? err.message : "Error al cambiar contraseña"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleClose = () => {
-    setPassword('');
-    setConfirmPassword('');
-    setError('');
+    setPassword("");
+    setConfirmPassword("");
+    setError("");
     onClose();
   };
 
@@ -52,12 +59,27 @@ export function ChangePasswordModal({ isOpen, onClose, onSubmit, username }: Cha
 
   return (
     <div className="modal-overlay" onClick={handleClose}>
-      <div className="modal-content modal-content-small" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content modal-content-small"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-header">
           <h2>Cambiar Contraseña</h2>
           <button className="modal-close" onClick={handleClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -69,8 +91,20 @@ export function ChangePasswordModal({ isOpen, onClose, onSubmit, username }: Cha
 
           {error && (
             <div className="form-error">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               {error}
             </div>
@@ -103,11 +137,16 @@ export function ChangePasswordModal({ isOpen, onClose, onSubmit, username }: Cha
           </div>
 
           <div className="form-actions">
-            <button type="button" onClick={handleClose} className="btn-cancel" disabled={loading}>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="btn-cancel"
+              disabled={loading}
+            >
               Cancelar
             </button>
             <button type="submit" className="btn-submit" disabled={loading}>
-              {loading ? 'Cambiando...' : 'Cambiar Contraseña'}
+              {loading ? "Cambiando..." : "Cambiar Contraseña"}
             </button>
           </div>
         </form>

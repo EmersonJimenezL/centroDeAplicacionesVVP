@@ -24,9 +24,9 @@ export function AppCard({
 
     if (isDownloadable) {
       // Crear un elemento <a> temporal para forzar la descarga
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = url.split('/').pop() || 'download';
+      link.download = url.split("/").pop() || "download";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

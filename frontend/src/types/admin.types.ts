@@ -1,4 +1,4 @@
-import type { Usuario } from './auth.types';
+import type { Usuario } from "./auth.types";
 
 export interface UsersListResponse {
   status: string;
@@ -16,7 +16,7 @@ export interface UpdatePermissionsResponse {
   data: Usuario;
 }
 
-export const ADMIN_USERS = ['ejimenez', 'mcontreras', 'igonzalez'];
+export const ADMIN_USERS = ["ejimenez", "mcontreras", "igonzalez"];
 
 export function isAdminUser(username: string): boolean {
   return ADMIN_USERS.includes(username.toLowerCase());

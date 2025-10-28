@@ -19,9 +19,9 @@ export const APPLICATIONS: Application[] = [
     id: "tickets",
     name: "Tickets y Gestión de activos",
     description:
-      "Panel de levantamiento de tickets con modulo de gestión de activos",
+      "Sistema de levantamiento de tickets con modulo de gestión de activos",
     icon: "🎫",
-    url: "http://192.168.200.80:5002/login",
+    url: "http://192.168.200.80:5002",
     color: "#ff6b35",
   },
   {
@@ -29,7 +29,7 @@ export const APPLICATIONS: Application[] = [
     name: "Stock",
     description: "Panel de stock de vehículos",
     icon: "📦",
-    url: "http://192.168.200.80:5004/login",
+    url: "http://192.168.200.80:5004",
     color: "#f7931e",
   },
   {
@@ -37,7 +37,7 @@ export const APPLICATIONS: Application[] = [
     name: "Notas de venta y Cotizaciones",
     description: "Sistema de creacion de notas de venta y cotizaciones",
     icon: "📋",
-    url: "http://192.168.200.80:5003/login",
+    url: "http://192.168.200.80:5003",
     color: "#ff8555",
   },
   {
@@ -45,8 +45,16 @@ export const APPLICATIONS: Application[] = [
     name: "Flujo de caja",
     description: "Plataforma de comunicación interna del equipo",
     icon: "📈",
-    url: "http://192.168.200.80:5001/login",
+    url: "http://192.168.200.80:5001",
     color: "#ff6b35",
+  },
+  {
+    id: "gestion-tecnico",
+    name: "Dashboard de Horas Diarias",
+    description: "Dashboard para gestión de técnicos",
+    icon: "🕐",
+    url: "http://192.168.200.80:5000",
+    color: "#ff7f50",
   },
   {
     id: "apk-stock-mobil",
@@ -57,21 +65,11 @@ export const APPLICATIONS: Application[] = [
     url: "http://192.168.200.80:3000/apk/app-release16.apk",
     color: "#e5522b",
   },
-  {
-    id: "configuracion",
-    name: "Configuración",
-    description: "Ajustes y preferencias del sistema",
-    icon: "🔧",
-    url: "https://config.example.com",
-    color: "#ff7f50",
-  },
 ];
 
 export function Dashboard() {
   const { usuario } = useAuth();
 
-  // Filter applications based on user permissions
-  // Admin users see all apps, regular users see only apps they have permission for
   const applications =
     usuario && isAdminUser(usuario.usuario)
       ? APPLICATIONS
