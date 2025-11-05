@@ -291,3 +291,68 @@
     color: var(--card-color, var(--orange-primary));
   }
 }
+
+/* Coming Soon Styles */
+.app-card.coming-soon {
+  cursor: not-allowed;
+  opacity: 0.6;
+  filter: grayscale(50%);
+  position: relative;
+}
+
+.app-card.coming-soon:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.app-card.coming-soon::before {
+  opacity: 0;
+}
+
+.app-card.coming-soon .app-icon {
+  background: linear-gradient(135deg, #6b7280, #9ca3af);
+  box-shadow: 0 4px 20px rgba(107, 114, 128, 0.3);
+}
+
+.app-card.coming-soon:hover .app-icon {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(107, 114, 128, 0.3);
+}
+
+.app-card.coming-soon .app-name,
+.app-card.coming-soon .app-description {
+  color: #9ca3af;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(55, 65, 81, 0.95);
+  backdrop-filter: blur(8px);
+  border: 2px solid #6b7280;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.coming-soon-badge span {
+  color: #d1d5db;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive para coming soon badge */
+@media (max-width: 640px) {
+  .coming-soon-badge {
+    padding: 0.6rem 1.2rem;
+  }
+
+  .coming-soon-badge span {
+    font-size: 0.95rem;
+  }
+}

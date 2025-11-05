@@ -73,8 +73,12 @@ export function InfoModal({ isOpen, onClose }: InfoModalProps) {
             <p>
               Cualquier solicitud de compra de equipos, software, licencias o
               insumos tecnológicos debe realizarse
-              <strong> únicamente por correo electrónico</strong>, siguiendo los
-              procedimientos establecidos por el departamento.
+              <strong>
+                {" "}
+                únicamente por correo electrónico o tambien por nuestra
+                plataforma de tickets
+              </strong>
+              , siguiendo los procedimientos establecidos por el departamento.
             </p>
           </section>
 
@@ -89,7 +93,8 @@ export function InfoModal({ isOpen, onClose }: InfoModalProps) {
                 <strong>Soporte técnico:</strong> Plataforma de Tickets
               </li>
               <li>
-                <strong>Compras y adquisiciones:</strong> Correo electrónico
+                <strong>Compras y adquisiciones:</strong> Correo electrónico y/o
+                Plataforma de Tickets
               </li>
               <li>
                 <strong>Reuniones:</strong> Coordinación previa obligatoria

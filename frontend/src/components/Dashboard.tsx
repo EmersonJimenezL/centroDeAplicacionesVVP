@@ -12,6 +12,7 @@ export interface Application {
   icon: string;
   url: string;
   color: string;
+  comingSoon?: boolean;
 }
 
 export const APPLICATIONS: Application[] = [
@@ -47,6 +48,7 @@ export const APPLICATIONS: Application[] = [
     icon: "📈",
     url: "http://192.168.200.80:5001",
     color: "#ff6b35",
+    comingSoon: true,
   },
   {
     id: "gestion-tecnico",
@@ -97,6 +99,7 @@ export function Dashboard() {
               icon={app.icon}
               url={app.url}
               color={app.color}
+              comingSoon={app.comingSoon}
             />
           ))
         ) : (

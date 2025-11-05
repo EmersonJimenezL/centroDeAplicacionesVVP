@@ -7,6 +7,7 @@ interface AppCardProps {
   icon: string;
   url: string;
   color?: string;
+  comingSoon?: boolean;
 }
 
 export function AppCard({
@@ -15,10 +16,14 @@ export function AppCard({
   icon,
   url,
   color = "var(--orange-primary)",
+  comingSoon = false,
 }: AppCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
+    // Si está en "próximamente", no hacer nada
+    if (comingSoon) return;
+
     // Detectar si es un archivo descargable (APK, PDF, etc.)
     const isDownloadable = url.match(/\.(apk|pdf|zip|rar|exe)$/i);
 
@@ -38,9 +43,9 @@ export function AppCard({
 
   return (
     <div
-      className="app-card"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`app-card ${comingSoon ? "coming-soon" : ""}`}
+      onMouseEnter={() => !comingSoon && setIsHovered(true)}
+      onMouseLeave={() => !comingSoon && setIsHovered(false)}
       onClick={handleClick}
       style={{ "--card-color": color } as React.CSSProperties}
     >
@@ -71,6 +76,11 @@ export function AppCard({
         </div>
       </div>
       <div className="app-card-glow"></div>
+      {comingSoon && (
+        <div className="coming-soon-badge">
+          <span>Próximamente</span>
+        </div>
+      )}
     </div>
   );
 }
