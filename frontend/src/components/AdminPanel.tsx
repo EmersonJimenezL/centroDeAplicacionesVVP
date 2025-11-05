@@ -17,6 +17,7 @@ export function AdminPanel() {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Modal states
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -221,6 +222,24 @@ export function AdminPanel() {
     setChangingPasswordUser(null);
   };
 
+  // Filtrar usuarios según la búsqueda
+  const filteredUsers = users.filter((user) => {
+    if (!searchQuery.trim()) return true;
+
+    const query = searchQuery.toLowerCase();
+    const nombreCompleto = `${user.pnombre} ${
+      user.snombre ? user.snombre + " " : ""
+    }${user.papellido} ${user.sapellido}`.toLowerCase();
+
+    return (
+      user.usuario.toLowerCase().includes(query) ||
+      nombreCompleto.includes(query) ||
+      user.email?.toLowerCase().includes(query) ||
+      user.sucursal?.toLowerCase().includes(query) ||
+      user.area?.toLowerCase().includes(query)
+    );
+  });
+
   if (loading) {
     return (
       <div className="admin-container">
@@ -326,6 +345,40 @@ export function AdminPanel() {
       )}
 
       <div className="user-management-section">
+        <div className="search-container">
+          <svg
+            className="search-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Buscar por usuario, nombre, email, sucursal o área..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button
+              className="clear-search"
+              onClick={() => setSearchQuery("")}
+              title="Limpiar búsqueda"
+            >
+              ✕
+            </button>
+          )}
+        </div>
         <button onClick={openCreateModal} className="btn-create-user">
           <svg
             width="20"
@@ -364,7 +417,7 @@ export function AdminPanel() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => {
+            {filteredUsers.map((user) => {
               const nombreCompleto = `${user.pnombre} ${
                 user.snombre ? user.snombre + " " : ""
               }${user.papellido} ${user.sapellido}`.trim();
@@ -544,9 +597,21 @@ export function AdminPanel() {
         </table>
       </div>
 
-      {users.length === 0 && !loading && (
+      {filteredUsers.length === 0 && !loading && (
         <div className="no-users">
-          <p>No se encontraron usuarios</p>
+          {searchQuery ? (
+            <>
+              <p>No se encontraron usuarios que coincidan con "{searchQuery}"</p>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="btn-clear-filter"
+              >
+                Limpiar búsqueda
+              </button>
+            </>
+          ) : (
+            <p>No se encontraron usuarios</p>
+          )}
         </div>
       )}
 
