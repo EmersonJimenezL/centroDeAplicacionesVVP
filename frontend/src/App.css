@@ -85,7 +85,7 @@
 .apps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1rem;
   max-width: 1400px;
   width: 100%;
   z-index: 1;

@@ -67,6 +67,23 @@ export const APPLICATIONS: Application[] = [
     url: "http://192.168.200.80:3000/apk/app-release16.apk",
     color: "#e5522b",
   },
+  {
+    id: "solicitud-repuestos",
+    name: "Solicitud de Repuestos",
+    description: "Sistema para gestionar y solicitar repuestos",
+    icon: "🔧",
+    url: "http://192.168.200.100/app-login",
+    color: "#ff8c42",
+  },
+  {
+    id: "pago-comisiones",
+    name: "Pago de comisiones",
+    description: "Sistema de gestión y pago de comisiones",
+    icon: "💰",
+    url: "#",
+    color: "#ff9f55",
+    comingSoon: true,
+  },
 ];
 
 export function Dashboard() {
